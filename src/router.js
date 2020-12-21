@@ -2,7 +2,7 @@
 import { Home } from './pages/home/index.js';
 import { Login } from './pages/login/index.js';
 import { onNavigate } from './utils/history.js';
-import { Registro } from './pages/registro/index.js';
+import { Registro } from './pages/registro/register.js';
 
 const routeRender = () => {
   const rootDiv = document.getElementById('root');

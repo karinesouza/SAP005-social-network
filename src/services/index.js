@@ -1,41 +1,43 @@
-// // exporte suas funções
+// CADASTRO DE NOVOS USUÁRIOS - Larissa
 
-// export const myFunction = () => {
-//   // seu código aqui
-//   console.log('Olá mundo!');
-// };
+export const createAccount = (createEmail, createPassword) => {
+  // const createEmail = document.getElementById("e-mail").value;
+  // const createPassword = document.getElementById("password").value;
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(createEmail, createPassword)
+    .then(() => {
+      alert("Cadastro criado com sucesso!");
+    })
+    .catch(() => {
+      alert("E-mail já cadastrado");
+    });
+};
+
+// LOGIN DE USUÁRIOS EXISTENTES - Karine
+
+export const login = (email, password) => {
+  // const email = document.querySelector("#e-mail").value;
+  // const password = document.querySelector("#password").value;
+  // const btnLogin = document.getElementsById("btn-login");
+
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(() => {
+      window.location.href = '/#';
+    })
+    .catch(() => {
+      alert("E-mail ou senha incorreta");
+    });
+};
+
+// AUTENTICAÇÃO COM GOOGLE - Karina
+
+export const loginWithGoogle = () => {
+  let provider = new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: 'select_account' }); 
+  firebase.auth().signInWithPopup(provider);
+};
 
 
-// LOGIN DE NOVOS USUÁRIOS
-const email = "teste@teste.com" //pegar do input email
-const password = "banana"       //pegar do input senha
-
-firebase
-  .auth()
-  .createUserWithEmailAndPassword(email, password)
-  .then(() => console.log("deu certo")) 
-  .catch((error) => {
-    // Signed in
-  
-    let errorCode = error.code;
-    let errorMessage = error.message;
-    console.log("deu ruim")
-    // ..
-  });
-
-  // LOGIN DE USUÁRIOS EXISTENTES
-
-firebase.auth().signInWithEmailAndPassword(email, password)
-  .then((user) => {
-    // Signed in
-    // ...
-  })
-  .catch((error) => {
-    let errorCode = error.code;
-    let errorMessage = error.message;
-  });
-
-  // AUTENTICAÇÃO COM GOOGLE
-
-let provider = new firebase.auth.GoogleAuthProvider();  
-provider.addScope('https://www.googleapis.com/auth/contacts.readonly');

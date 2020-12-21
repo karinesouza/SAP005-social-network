@@ -2,13 +2,14 @@
 import { Home } from './pages/home/index.js';
 import { Login } from './pages/login/index.js';
 import { onNavigate } from './utils/history.js';
+import { Registro } from './pages/registro/index.js';
 
 const routeRender = () => {
   const rootDiv = document.getElementById('root');
   const routes = {
     '/' : Home,
     '/login': Login,
-
+    '/registro': Registro,
   };
 
   rootDiv.innerHTML = '';
@@ -29,6 +30,12 @@ window.addEventListener('load', () => {
       e.preventDefault();
       onNavigate('/login')
     });
-
+  document
+    .getElementById('register')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      onNavigate('/registro')
+    });
   routeRender();
 });
+

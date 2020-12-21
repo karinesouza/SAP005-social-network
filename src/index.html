@@ -1,21 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./style.css">
-    <title>PetLovers</title>
-  </head>
-  <body>
-    <nav>
-      <ul>
-        <li id='home'>Home</li>
-        <li id='login'>Login</li>
-      </ul>
-    </nav>
-    <div id="loginform"></div> 
-    <div id="root"></div>
-    <script type="module" src="router.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="./style.css">
+  <title>PetLovers</title>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li id='home'>Home</li>
+      <li id='login'>Login</li>
+      <li id='register'>Registro</li>
+    </ul>
+  </nav>
+  <div id="loginform"></div>
+  <div id="root"></div>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyDqVTSs2lJpenFNP5OwfbLKeIYZG0tJfUk",
+      authDomain: "rede-social-27bf8.firebaseapp.com",
+      projectId: "rede-social-27bf8",
+      storageBucket: "rede-social-27bf8.appspot.com",
+      messagingSenderId: "1078881685987",
+      appId: "1:1078881685987:web:4ae115cfce15ff369850d6",
+      measurementId: "G-HHJMNS835E"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+  <script type="module" src="router.js"></script>
+</body>
+
 </html>

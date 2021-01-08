@@ -15,7 +15,7 @@ export const Login = () => {
         <input type="button" id="btn-login" value="Entrar">
         <p class="login-google">Entre com</p>
         <button class="google" id="btn-google"><img class="img-g"  src="../../img/google.jpg" alt="logo-google"></button>
-        <p>Não tem cadastro? <a href="/registro">Cadastre-se</a></p>
+        <p>Não tem conta? <a href="/registro">Cadastre-se</a></p>
       </form>  
     </div>    
   `;
@@ -28,7 +28,6 @@ export const Login = () => {
       const email = rootElement.querySelector('#registered-email').value
       const password = rootElement.querySelector('#registered-password').value
       login(email, password);
-      window.location.href = '/time-line';
     });
 
     //AUTENTICAÇÃO COM GOOGLE
@@ -37,7 +36,6 @@ export const Login = () => {
       googleButton.addEventListener('click', (event) => {
       event.preventDefault();  
       loginWithGoogle();
-      window.location.href = '/time-line';
     });
 
   return rootElement;

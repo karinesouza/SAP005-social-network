@@ -1,10 +1,9 @@
-// Este é seu ponto de entrada da sua aplicação
 import { Home } from './pages/home/index.js';
 import { Login } from './pages/login/index.js';
 import { onNavigate } from './utils/history.js';
-import { Registro } from './pages/registro/register.js';
+import { Registro } from './pages/register/register.js';
 
-const routeRender = () => {
+export const routeRender = () => {
   const rootDiv = document.getElementById('root');
   const routes = {
     '/' : Home,

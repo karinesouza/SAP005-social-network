@@ -1,4 +1,4 @@
-import { createAccount, signInToEmail } from '../../services/index.js';
+import { createAccount } from '../../services/index.js';
 
 export const Registro = () => {
     const rootElement = document.createElement('div');
@@ -10,30 +10,29 @@ export const Registro = () => {
                 <input id="name" type="name" placeholder="Nome do seu pet" required>
                 <input id="e-mail" type="e-mail" placeholder="E-mail" required>
                 <input id="password" type="password" placeholder="Crie uma senha (No mínimo 6 caracteres)" required>
-                <button id="btn-back">Voltar</button>
-                <button id="btn-submit">Enviar</button>
+                <button id="back-btn">Voltar</button>
+                <button id="register-btn">Concluir cadastro</button>
             </form>
         </div>
     `;
 
-    //botão de voltar para a home
+    // VOLTAR PARA A PÁGINA DE LOGIN
 
-    const backButton = rootElement.querySelector('#btn-back');
+    const backButton = rootElement.querySelector('#back-btn');
     backButton.addEventListener('click', (event) => {
         event.preventDefault();
-        window.location.href = '/';
+        window.location.href = '/login';
     });
 
-    //botão de enviar
+    // CADASTRAR-SE
 
-    const submitButton = rootElement.querySelector('#btn-submit');
-    submitButton.addEventListener('click', (event) => {
+    const registerButton = rootElement.querySelector('#register-btn');
+    registerButton.addEventListener('click', (event) => {
         event.preventDefault();
         const petName = rootElement.querySelector('#name').value
         const createEmail = rootElement.querySelector('#e-mail').value
         const createPassword = rootElement.querySelector('#password').value
         createAccount (createEmail, createPassword, petName);
-        signInToEmail (createEmail);
     });
 
     return rootElement;

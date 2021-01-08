@@ -1,11 +1,11 @@
 // CADASTRO DE NOVOS USUÁRIOS 
 
-export const createAccount = (createEmail, createPassword, petName) => {
+export const createAccount = (createEmail, createPassword, name) => {
   firebase
     .auth()
     .createUserWithEmailAndPassword(createEmail, createPassword)
     .then(cred => {
-      cred.user.updateProfile({displayName: petName})
+      cred.user.updateProfile({displayName: name})
       window.location.href = '/login';
       alert("Cadastro criado com sucesso!");
     })
@@ -16,38 +16,6 @@ export const createAccount = (createEmail, createPassword, petName) => {
     });
 };
 
-// VALIDAR E-MAIL
-
-const actionCodeSettings = {
-  // URL you want to redirect back to. The domain (www.example.com) for this
-  // URL must be in the authorized domains list in the Firebase Console.
-  url: 'https://rede-social-27bf8.firebaseapp.com/__/auth/action?mode=action&oobCode=code',
-  // This must be true.
-  handleCodeInApp: true,
-  iOS: {
-    bundleId: 'com.example.ios'
-  },
-  android: {
-    packageName: 'com.example.android',
-    installApp: true,
-    minimumVersion: '12'
-  },
-  dynamicLinkDomain: 'example.page.link'
-};
-
-export const signInToEmail = (createEmail) => {
-  firebase.auth().sendSignInLinkToEmail(createEmail, actionCodeSettings)
-.then(function() {
-  // The link was successfully sent. Inform the user.
-  // Save the email locally so you don't need to ask the user for it again
-  // if they open the link on the same device.
-  window.localStorage.setItem('emailForSignIn', createEmail);
-})
-.catch(function(error) {
-  // Some error occurred, you can inspect the code: error.code
-});
-}
-
 // LOGIN 
 
 export const login = (email, password) => {
@@ -55,7 +23,7 @@ export const login = (email, password) => {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(user => {
-      console.log("funcionando", user)
+      alert(`Oi, ${user.displayName}!`)
     })
 
     .catch(() => {
@@ -71,4 +39,21 @@ export const loginWithGoogle = () => {
   firebase.auth().signInWithPopup(provider);
 };
 
-  
+// FUNÇÃO DE EXCLUIR A PUBLICAÇÃO
+
+export const deletePublication = () => {
+  let deletePubli = firebase.firestore().collection("publications").doc();
+  deletePubli.delete()
+};
+
+// FUNÇÃO DE LIKE
+
+export const likePublication = () => {
+  let likePubli = firebase.firestore().collection("publications").doc();
+  likePubli.update({
+    likes: firebase.firestore.FieldValue.increment(1)
+  })
+
+};
+
+

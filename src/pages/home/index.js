@@ -1,5 +1,5 @@
 import { routeRender } from '../../router.js'
-//import { deletePublication } from "../../services/index.js";
+import { /*deletePublication,*/ signOut } from "../../services/index.js";
 
 export const Home = () => {
   const rootElement = document.createElement('div');
@@ -8,6 +8,7 @@ export const Home = () => {
      <textarea id="publication"></textarea>
      <button class="publish-button" id="publish-btn">Postar</button>
      <div id="feed"></div>
+     <button id='sign-out-btn' class='menu-hamburger-btn-style'>Sair</button>
   `;
 
   const publish = rootElement.querySelector("#publication");
@@ -34,13 +35,16 @@ export const Home = () => {
            <div>
            <p>${data.post}</p>
            <button id="edit-btn">Editar</button>
-           <button class="delete-btn">Excluir</button>
+           <button class="delete-btn">Excluir</button>           
            </div>
           `
 
     postsArea.innerHTML += templatePosts
   }
 
+
+
+  // DELETAR PUBLICAÇÃO
 
   // document.querySelector('.delete-btn').forEach((event) =>
   //   event.addEventListener('click', (event) => {
@@ -102,6 +106,13 @@ export const Home = () => {
   //  postsPublicados()
 
 
+  // LOGOUT
+
+  const signOutBtn = rootElement.querySelector('#sign-out-btn');
+  signOutBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    signOut();
+  });
 
 
   return rootElement;

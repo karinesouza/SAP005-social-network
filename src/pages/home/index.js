@@ -1,15 +1,18 @@
 import { routeRender } from '../../router.js'
-import { /*deletePublication,*/ signOut } from "../../services/index.js";
+import { /*deletePublication,*/ signOut} from "../../services/index.js";
 
 export const Home = () => {
   const rootElement = document.createElement('div');
   rootElement.innerHTML = `
+  <div class="time-line">
      <h1>Feed</h1>
      <textarea id="publication"></textarea>
      <button class="publish-button" id="publish-btn">Postar</button>
-     <div id="feed"></div>
-     <button id='sign-out-btn' class='menu-hamburger-btn-style'>Sair</button>
-  `;
+     <div id="feed">
+     </div>
+     <button id="sign-out-btn">Sair</button>
+  </div>
+`;
 
   const publish = rootElement.querySelector("#publication");
   const publishButton = rootElement.querySelector("#publish-btn");
@@ -34,13 +37,15 @@ export const Home = () => {
     const templatePosts = `
            <div>
            <p>${data.post}</p>
+           <textarea id="edit"></textarea>
            <button id="edit-btn">Editar</button>
            <button class="delete-btn">Excluir</button>           
            </div>
           `
-
     postsArea.innerHTML += templatePosts
   }
+
+  // EDITAR PUBLICAÇÃO
 
 
 

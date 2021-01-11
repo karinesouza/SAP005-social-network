@@ -5,12 +5,12 @@ export const createAccount = (createEmail, createPassword, name) => {
     .auth()
     .createUserWithEmailAndPassword(createEmail, createPassword)
     .then(cred => {
-      cred.user.updateProfile({displayName: name})
+      cred.user.updateProfile({ displayName: name })
       window.location.href = '/login';
       alert("Cadastro criado com sucesso!");
     })
     .catch(() => {
-      if ("auth/invalid-email"){
+      if ("auth/invalid-email") {
         alert("E-mail já cadastrado")
       }
     });
@@ -31,11 +31,31 @@ export const login = (email, password) => {
     });
 };
 
+// OUTRA MANEIRA DE LOGAR E SER DIRECIONADO PRA HOME
+
+// export const login = (email, password) => {
+//   if (firebase.auth()) {
+//     firebase.auth().currentUser()
+//       .then(() => {
+//         firebase
+//           .auth()
+//           .signInWithEmailAndPassword(email, password)
+//           .then(() => {
+//             window.location.href = '/';
+//           })
+
+//           .catch(() => {
+//             alert("E-mail ou senha incorreta");
+//           });
+//       })
+//   }
+// };
+
 // AUTENTICAÇÃO COM GOOGLE
 
 export const loginWithGoogle = () => {
   let provider = new firebase.auth.GoogleAuthProvider();
-  provider.setCustomParameters({ prompt: 'select_account' }); 
+  provider.setCustomParameters({ prompt: 'select_account' });
   firebase.auth().signInWithPopup(provider);
 };
 
@@ -69,3 +89,43 @@ export const signOut = () => {
   }
 };
 
+// export const createPost = (post) => {
+//   const user = firebase.auth().currentUser;
+//   const date = new Date();
+//   firebase
+//     .firestore()
+//     .collection("publications")
+//     .add({
+//       name: user.displayName,
+//       user_id: user.uid,
+//       text: post,
+//       date: date.toLocaleString(),
+//       time: date.getTime(),
+//       likes: 0,
+//       user_like: [],
+//       comentarios: [],
+      
+//     })
+//     .then(function() {
+//       console.log("Post enviado com sucesso!");
+//     })
+//     .catch(function() {
+//       console.error("Ocorreu um erro");
+//     });
+// };
+
+
+// EDITAR POST
+
+export const editPost = (edit) => {
+  console.log(edit);
+  return editCollection.add({
+    liked: true,
+  })
+  .then(() => {
+    return true
+  })
+  .catch((error) => { 
+    return error;
+  })
+}

@@ -1,14 +1,18 @@
-// Este é seu ponto de entrada da sua aplicação
 import { Home } from './pages/home/index.js';
 import { Login } from './pages/login/index.js';
+import { register } from './pages/register/index.js';
 import { onNavigate } from './utils/history.js';
+import { publicar } from './pages/publicar/index.js';
+import { publicacoes } from './pages/publicacoes/index.js';
 
 const routeRender = () => {
   const rootDiv = document.getElementById('root');
   const routes = {
-    '/' : Home,
+    '/': Home,
     '/login': Login,
-
+    '/register': register,
+    '/publicar': publicar,
+    '/publicacoes': publicacoes
   };
 
   rootDiv.innerHTML = '';
@@ -21,13 +25,35 @@ window.addEventListener('load', () => {
     .getElementById('home')
     .addEventListener('click', (e) => {
       e.preventDefault();
-      onNavigate('/')
+      onNavigate('/');
     });
+
   document
     .getElementById('login')
     .addEventListener('click', (e) => {
       e.preventDefault();
-      onNavigate('/login')
+      onNavigate('/login');
+    });
+
+    document
+    .getElementById('register')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      onNavigate('/register');
+    });
+
+  document
+    .getElementById('publicar')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      onNavigate('/publicar');
+    });
+
+  document
+    .getElementById('publicacoes')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      onNavigate('/publicacoes');
     });
 
   routeRender();

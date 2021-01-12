@@ -6,7 +6,7 @@ export const createAccount = (createEmail, createPassword, name) => {
     .createUserWithEmailAndPassword(createEmail, createPassword)
     .then(cred => {
       cred.user.updateProfile({ displayName: name })
-      window.location.href = '/login';
+      //window.location.pathname = '/login';
       alert("Cadastro criado com sucesso!");
     })
     .catch(() => {
@@ -24,6 +24,7 @@ export const login = (email, password) => {
     .signInWithEmailAndPassword(email, password)
     .then(user => {
       alert(`Oi, ${user.displayName}!`)
+      //window.location.pathname = '/home';
     })
 
     .catch(() => {
@@ -59,22 +60,65 @@ export const loginWithGoogle = () => {
   firebase.auth().signInWithPopup(provider);
 };
 
-// FUNÇÃO DE EXCLUIR A PUBLICAÇÃO
+// CRIAR POST
 
-export const deletePublication = () => {
-  let deletePubli = firebase.firestore().collection("publications").doc();
-  deletePubli.delete()
+export const getPosts = () => {
+  const post = firebase
+    .firestore()
+    .collection('publications')
+    .orderBy("date", "desc")
+  return post.get()
 };
 
-// FUNÇÃO DE LIKE
+export const createPost = (post) => {
+  const user = firebase.auth().currentUser;
+  const date = new Date();
+  firebase
+    .firestore()
+    .collection("publications")
+    .add({
+      name: user.displayName,
+      user_id: user.uid,
+      text: post,
+      date: date.toLocaleString(),
+      time: date.getTime(),
+      likes: 0,
+      user_like: [],
+      comentarios: [],
 
-export const likePublication = () => {
-  let likePubli = firebase.firestore().collection("publications").doc();
-  likePubli.update({
-    likes: firebase.firestore.FieldValue.increment(1)
+    })
+    .then(function () {
+      console.log("Post enviado com sucesso!");
+    })
+    .catch(function () {
+      console.error("Ocorreu um erro");
+    });
+};
+
+
+export const likePost = (id) => {
+  const postLike = firebase.firestore().collection("publications").doc(id);
+  postLike.update({
+    likes: firebase.firestore.FieldValue.increment(1),
   })
 
-};
+}
+
+export const editPost = (text, id) => {
+  firebase
+    .firestore()
+    .collection("publications")
+    .doc(id)
+    .update({
+      text: text,
+    });
+}
+
+
+export const deletePost = (id) => {
+  let postDelete = firebase.firestore().collection("publications").doc(id);
+  postDelete.delete()
+}
 
 // FUNÇÃO LOGOUT
 
@@ -88,44 +132,3 @@ export const signOut = () => {
       });
   }
 };
-
-// export const createPost = (post) => {
-//   const user = firebase.auth().currentUser;
-//   const date = new Date();
-//   firebase
-//     .firestore()
-//     .collection("publications")
-//     .add({
-//       name: user.displayName,
-//       user_id: user.uid,
-//       text: post,
-//       date: date.toLocaleString(),
-//       time: date.getTime(),
-//       likes: 0,
-//       user_like: [],
-//       comentarios: [],
-      
-//     })
-//     .then(function() {
-//       console.log("Post enviado com sucesso!");
-//     })
-//     .catch(function() {
-//       console.error("Ocorreu um erro");
-//     });
-// };
-
-
-// EDITAR POST
-
-export const editPost = (edit) => {
-  console.log(edit);
-  return editCollection.add({
-    liked: true,
-  })
-  .then(() => {
-    return true
-  })
-  .catch((error) => { 
-    return error;
-  })
-}

@@ -1,6 +1,6 @@
 import { createAccount } from '../../services/index.js';
 
-export const Registro = () => {
+export const register = () => {
     const rootElement = document.createElement('div');
     rootElement.innerHTML = `
         <div id="register-form">

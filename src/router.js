@@ -1,14 +1,18 @@
 import { Home } from './pages/home/index.js';
 import { Login } from './pages/login/index.js';
+import { register } from './pages/register/register.js';
 import { onNavigate } from './utils/history.js';
-import { Registro } from './pages/register/register.js';
+import { publicar } from './pages/publicar/index.js';
+import { publicacoes } from './pages/publicacoes/index.js';
 
 export const routeRender = () => {
   const rootDiv = document.getElementById('root');
   const routes = {
-    '/' : Home,
+    '/': Home,
     '/login': Login,
-    '/registro': Registro,
+    '/register': register,
+    '/publicar': publicar,
+    '/publicacoes': publicacoes
   };
 
   rootDiv.innerHTML = '';
@@ -21,13 +25,35 @@ window.addEventListener('load', () => {
     .getElementById('home')
     .addEventListener('click', (e) => {
       e.preventDefault();
-      onNavigate('/')
+      onNavigate('/');
     });
+
   document
     .getElementById('login')
     .addEventListener('click', (e) => {
       e.preventDefault();
-      onNavigate('/login')
+      onNavigate('/login');
+    });
+
+    document
+    .getElementById('register')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      onNavigate('/register');
+    });
+
+  document
+    .getElementById('publicar')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      onNavigate('/publicar');
+    });
+
+  document
+    .getElementById('publicacoes')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      onNavigate('/publicacoes');
     });
   document
     .getElementById('register')
@@ -37,4 +63,3 @@ window.addEventListener('load', () => {
     });
   routeRender();
 });
-

@@ -1,124 +1,261 @@
-import { routeRender } from '../../router.js'
-import { /*deletePublication,*/ signOut} from "../../services/index.js";
+import { createPost, getPosts, deletePost, likePost, editPost, signOut } from "../../services/index.js";
+//import { onNavigate } from '../../utils/history.js';
 
 export const Home = () => {
   const rootElement = document.createElement('div');
   rootElement.innerHTML = `
-  <div class="time-line">
-     <h1>Feed</h1>
-     <textarea id="publication"></textarea>
-     <button class="publish-button" id="publish-btn">Postar</button>
-     <div id="feed">
-     </div>
-     <button id="sign-out-btn">Sair</button>
-  </div>
-`;
+    <header id="header">
+      <h3>PetLovers</h3>
+    </header> 
+    <main>
+      <section id="user-container">
+        <h2 class="user-item" id="hello-user"> </h2>
+      </section>
+      <section class="page-section">
+        <textarea id="publish-area" cols="50" rows="20" placeholder="O que deseja compartilhar hoje?"></textarea>
+      </section>
+      <section id="container-button">
+        <button id="publish-btn">Publicar</button>
+      </section>  
 
-  const publish = rootElement.querySelector("#publication");
-  const publishButton = rootElement.querySelector("#publish-btn");
-  const postsArea = rootElement.querySelector("#feed");
+      <header id="header">
+        <section id="option-container">
+            <h3 ><a href="publicar" class="option-item" id="posts-view">Publicar</a></h3>
+        </section>
+        <button id="sign-out-btn">Sair</button>
+    </header> 
+    <main>
+        <section id="user-container">
+            <h2 class="user-item" id="hello-user"> </h2>
+        </section>
+        <section id=recent-container>
+            <h4>Publicações</h4>
+        </section>
+        <section>
+            <div id=text></div>
+        </section>
+        
+    </main>
+  `;
 
-  publishButton.addEventListener('click', createPublication)
+  const post = rootElement.querySelector('#publish-btn');
+  const publication = rootElement.querySelector('#publish-area');
+  const petName = rootElement.querySelector('#hello-user');
 
-  function createPublication() {
-    const posts = {
-      post: publish.value,
-      uid: firebase.auth().currentUser.uid,
-      date: new Date(),
-      likes: 0
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user != null) {
+      petName.innerHTML = `Olá, ${user.displayName}!`;
+    } else {
+      alert("Usuário não logado!")
     }
-    firebase.firestore().collection("publications").add(posts).then(() => {
-      postsArea.innerHTML = publish.value;
-    })
-    routeRender()
-  }
+  })
 
-  function showPublication(data) {
-    const templatePosts = `
-           <div>
-           <p>${data.post}</p>
-           <textarea id="edit"></textarea>
-           <button id="edit-btn">Editar</button>
-           <button class="delete-btn">Excluir</button>           
-           </div>
-          `
-    postsArea.innerHTML += templatePosts
-  }
-
-  // EDITAR PUBLICAÇÃO
-
-
-
-  // DELETAR PUBLICAÇÃO
-
-  // document.querySelector('.delete-btn').forEach((event) =>
-  //   event.addEventListener('click', (event) => {
-  //     let deletePost = event.target.parentNode.querySelector('.delete-btn')
-  //     console.log(deletePost.dataset.id)
-  //     deletePublication(deletePost.dataset.id)
-  //     getPosts()
-  //   })
-
-  // );
-
-
-  function publishedPosts() {
-
-    firebase.firestore().collection("publications").orderBy("date", "desc").onSnapshot((snapshot) => { //onSnapshot = atualizar o documento
-      snapshot.docChanges().forEach((posts) => { // forEach = repete as propriedades de um objeto (post)
-        if (posts.type === "added") {
-          showPublication(posts.doc.data(), posts.doc.id)
-        }
-      })
-    })
-  }
-
-  publishedPosts()
-
-
-  //  function mostrarPost (data) {
-  //    let showPosts = ""
-  //   data.forEach(doc => {
-  //      const dados = doc.data()
-  //      let templatePosts = ""
-  //      if (data.uid === firebase.auth().currentUser.uid){
-  //        templatePosts = `
-  //        <div>
-  //        <p>${dados.post}</p>
-  //        <button>Editar</button>
-  //        <button>Excluir</button>
-  //        </div>
-  //        `
-  //      } else {
-  //        templatePosts = `
-  //        <div>
-  //        <p>${dados.post}</p>
-  //        </div>
-  //        `
-  //      }
-  //     showPosts += templatePosts
-  //    })
-  //  }
-
-
-  //  function postsPublicados () {
-  //    firebase.firestore().collection("publicações").get().then((snapshot) => {
-  //      const trazerPosts = mostrarPost(snapshot.doc);
-  //      postsArea.innerHTML = trazerPosts
-  //    })
-  //  }
-
-  //  postsPublicados()
-
-
-  // LOGOUT
-
-  const signOutBtn = rootElement.querySelector('#sign-out-btn');
-  signOutBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    signOut();
+  post.addEventListener('click', () => {
+    createPost(publication.value);
+    //onNavigate('/')
   });
 
 
-  return rootElement;
+  const addPost = (post) => {
+
+    const postTemplate =
+      `
+
+            <section class="post-container" data-id=${post.id}>
+                <div class="post-item">
+                    <img src="../../img/user.png">
+                    <p>${post.data().name}</p>
+                </div>
+                <div id="text-container">
+                    <textarea class="text-post" ${post.id}>${post.data().text}</textarea> 
+                </div>
+            </section>
+            <section id="container-date">
+                <p id="text-date">${post.data().date} </p>
+            </section> 
+            <section id="container-edit"> 
+              <div class="item-edit">
+                <img src="../../img/patinha.jpg" alt="like" class="like-btn" data-id=${post.id}>
+                <p id="number-of-likes" class= "number-of-likes" data-id=${post.id}>${post.data().likes}</p>
+              </div>
+              <div class="item-edit">
+                  <button class="edit-post-btn" data-id=${post.id}>Editar</button>
+                  <div class="edit">
+          <hr>
+          <textarea class="edit-area"></textarea>
+          <button class="save-edit-btn">Salvar</button>
+        </div>
+                  <button class="btn-delete-post" data-id=${post.id}>Excluir</button>
+              </div>     
+            </section>
+        `
+
+    document.getElementById("text").innerHTML += postTemplate;
+
+
+    document.querySelectorAll('.like-btn').forEach((event) =>
+      event.addEventListener('click', (event) => {
+        let LikeBtn = event.target.parentNode.querySelector('.like-btn')
+        console.log(LikeBtn.dataset.id)
+        likePost(LikeBtn.dataset.id)
+        getPosts()
+        //onNavigate('/');
+      })
+
+    );
+
+    const showEdits = () => {
+      const userPost = post.data().user_id
+      const currentUser = firebase.auth().currentUser.uid
+      document.querySelectorAll(".btn-delete-post").forEach((event) => {
+        const btnDelete = event.parentNode.querySelector(".btn-delete-post")
+        //const btnEdit = event.parentNode.querySelector(".btn-edit-post")
+        if (userPost === currentUser) {
+          btnDelete.style.display = 'block';
+          //btnEdit.style.display = 'block';
+        }
+      })
+    }
+
+    showEdits()
+
+    // document.querySelectorAll('.btn-edit-post').forEach((event) =>
+    //     event.addEventListener('click', (event) => {
+    //         const btnEdit = event.target.parentNode.querySelector(".btn-edit-post")
+    //         document.querySelectorAll(".text-post").forEach((e) => {
+    //             const textArea = e.parentNode.querySelector(".text-post")
+    //             editPost(textArea.value, btnEdit.dataset.id)
+    //             console.log(textArea.value, btnEdit.dataset.id)
+    //         })
+    //     })
+    // );
+
+    document.querySelectorAll('.btn-delete-post').forEach((event) =>
+      event.addEventListener('click', (event) => {
+        const btnDelete = event.target.parentNode.querySelector('.btn-delete-post')
+        if (confirm("Tem certeza que deseja excluir a publicação?")) {
+          deletePost(btnDelete.dataset.id)
+          getPosts()
+          //onNavigate('/');
+        }
+      })
+    )
+
+
+
+    getPosts().then(snap => {
+      snap.forEach(post => {
+        addPost(post)
+      });
+    })
+
+
+
+
+
+
+
+    // document.querySelectorAll('.edit-post').forEach((event) =>
+    //     event.addEventListener('click', (event) => {
+    //         const btnEdit = event.target.parentNode.querySelector(".edit-post")
+    //         document.querySelectorAll(".text-post").forEach((event) => {
+    //             const textArea = event.parentNode.querySelector(".text-post")
+    //             editPost(textArea.value, btnEdit.dataset.id)
+    //             console.log(textArea.value, btnEdit.dataset.id)
+    //         })
+    //     })
+    // )
+
+    const editBtn = document.querySelectorAll('.edit-post-btn');
+    editBtn.forEach((editButton) => {
+      editButton.addEventListener('click', (event) => {
+        showEditBox(event);
+      });
+    });
+
+    const showEditBox = (event) => {
+      const cardPost = event.target.parentNode;
+      toggleEditBox(cardPost, true);
+
+      const saveEdit = cardPost.querySelector('.save-edit-btn');
+      saveEdit.addEventListener('click', () => {
+        sendEdit(cardPost);
+      });
+    }
+
+    const sendEdit = (cardPost) => {
+      const editTextArea = cardPost.querySelector('.edit-area');
+      const holderEditBlock = cardPost.querySelector('.edit');
+
+      editPost(editTextArea.value)
+        .then(() => {
+          const editValue = document.createElement("p");
+          editValue.textContent = editTextArea.value;
+          cardPost.insertBefore(editValue, holderEditBlock);
+          toggleEditBox(cardPost, false);
+          editTextArea.value = "";
+        })
+        .catch(() => {
+          alert('Deu ruim aí');
+        })
+    }
+
+    const toggleEditBox = (cardPost, showEdit) => {
+      const holderEditBlock = cardPost.querySelector('.edit');
+
+      if (showEdit) {
+        holderEditBlock.classList.add('display');
+      } else {
+        holderEditBlock.classList.remove('display');
+      }
+    }
+
+
+
+
+
+    // const rootElement = document.createElement('div');
+    // rootElement.innerHTML = `
+    // <header id="header">
+    //     <section id="option-container">
+    //         <h3 ><a href="publicar" class="option-item" id="posts-view">Publicar</a></h3>
+    //     </section>
+    //     <button id="sign-out-btn">Sair</button>
+    // </header> 
+    // <main>
+    //     <section id="user-container">
+    //         <h2 class="user-item" id="hello-user"> </h2>
+    //     </section>
+    //     <section id=recent-container>
+    //         <h4>Publicações</h4>
+    //     </section>
+    //     <section>
+    //         <div id=text></div>
+    //     </section>
+        
+    // </main>
+      
+    // `;
+
+    const userName = rootElement.querySelector('#hello-user')
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user != null) {
+        userName.innerHTML = `Olá, ${user.displayName}!`;
+      } else {
+        alert("Usuário não logado!")
+      }
+    })
+
+    // LOGOUT
+
+    const signOutBtn = rootElement.querySelector('#sign-out-btn');
+    signOutBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      signOut();
+    });
+
+    return rootElement;
+
+  }
 };

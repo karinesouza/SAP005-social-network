@@ -1,7 +1,7 @@
-import { Registro } from './index.js';
+import { register } from './index.js';
 
-describe('registro', () => {
+describe('register', () => {
   it('should be a function', () => {
-    expect(typeof Registro).toBe('function');
+    expect(typeof register).toBe('function');
   });
 });

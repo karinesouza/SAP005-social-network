@@ -46,7 +46,6 @@ export const Home = () => {
 
         const postTemplate =
             `
-
             <section class="post-container" data-id=${post.id}>
                 <div class="post-item">
                     <img src="../../img/user.png">

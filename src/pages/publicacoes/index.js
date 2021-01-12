@@ -9,7 +9,6 @@ export const publicacoes = () => {
 
         const postTemplate =
             `
-
             <section class="post-container" data-id=${post.id}>
                 <div class="post-item">
                     <img src="../../img/user.png">
@@ -126,7 +125,6 @@ export const publicacoes = () => {
             <h3 ><a href="publicacoes" class="option-item" id="posts-view">Publicações</a></h3>
         </section>
         <input id="exit" type="image" src="../../img/Logout/logout-red.png" alt="Logout" />
-
     </header> 
     <main>
         <section id="user-container">
@@ -156,30 +154,3 @@ export const publicacoes = () => {
 
     return rootElement;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,4 +5,3 @@ describe('publicacoes', () => {
     expect(typeof publicacoes).toBe('function');
   });
 });
-

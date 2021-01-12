@@ -12,9 +12,9 @@ export const Login = () => {
         <input id="registered-email" type="e-mail" placeholder="Digite o e-mail cadastrado" required>
         <label class="password">Senha</label>
         <input id="registered-password" type="password" placeholder="Digite sua senha" required>
-        <input type="button" id="btn-login" value="Entrar">
+        <input type="button" id="login-btn" value="Entrar">
         <p class="login-google">Entre com</p>
-        <button class="google" id="btn-google"><img class="img-g"  src="../../img/google.jpg" alt="logo-google"></button>
+        <button class="google" id="google-btn"><img class="img-g"  src="../../img/google.jpg" alt="logo-google"></button>
         <p>Não tem conta? <a href="/registro">Cadastre-se</a></p>
       </form>  
     </div>    
@@ -22,7 +22,7 @@ export const Login = () => {
 
     //LOGIN COM E-MAIL E SENHA
 
-    const loginButton = rootElement.querySelector('#btn-login');
+    const loginButton = rootElement.querySelector('#login-btn');
       loginButton.addEventListener('click', (event) => {
       event.preventDefault();  
       const email = rootElement.querySelector('#registered-email').value
@@ -32,7 +32,7 @@ export const Login = () => {
 
     //AUTENTICAÇÃO COM GOOGLE
 
-    const googleButton = rootElement.querySelector('#btn-google');
+    const googleButton = rootElement.querySelector('#google-btn');
       googleButton.addEventListener('click', (event) => {
       event.preventDefault();  
       loginWithGoogle();

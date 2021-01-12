@@ -55,11 +55,11 @@ window.addEventListener('load', () => {
       e.preventDefault();
       onNavigate('/publicacoes');
     });
-  document
-    .getElementById('register')
-    .addEventListener('click', (e) => {
-      e.preventDefault();
-      onNavigate('/registro')
-    });
+  // document
+  //   .getElementById('register')
+  //   .addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     onNavigate('/registro')
+  //   });
   routeRender();
 });

@@ -1,4 +1,4 @@
-// CADASTRO DE NOVOS USUÁRIOS 
+// CRIAR CADASTRO 
 
 export const createAccount = (createEmail, createPassword, name) => {
   firebase
@@ -22,11 +22,9 @@ export const login = (email, password) => {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(user => {
-      alert(`Oi, ${user.displayName}!`)
-      //window.location.pathname = '/home';
+    .then(() => {
+      window.location.pathname = '/home';
     })
-
     .catch(() => {
       alert("E-mail ou senha incorreta");
     });
@@ -60,7 +58,7 @@ export const loginWithGoogle = () => {
   firebase.auth().signInWithPopup(provider);
 };
 
-// CRIAR POST
+// CRIAR PUBLICAÇÃO
 
 export const getPosts = () => {
   const post = firebase
@@ -95,6 +93,7 @@ export const createPost = (post) => {
     });
 };
 
+// CURTIR PUBLICAÇÃO
 
 export const likePost = (id) => {
   const postLike = firebase.firestore().collection("publications").doc(id);
@@ -103,6 +102,8 @@ export const likePost = (id) => {
   })
 
 }
+
+// EDITAR PUBLICAÇÃO
 
 export const editPost = (text, id) => {
   firebase
@@ -114,13 +115,14 @@ export const editPost = (text, id) => {
     });
 }
 
+// DELETAR PUBLICAÇÃO
 
 export const deletePost = (id) => {
-  let postDelete = firebase.firestore().collection("publications").doc(id);
-  postDelete.delete()
+  let deletePubli = firebase.firestore().collection("publications").doc(id);
+  deletePubli.delete()
 }
 
-// FUNÇÃO LOGOUT
+// SAIR
 
 export const signOut = () => {
   if (firebase.auth().currentUser) {

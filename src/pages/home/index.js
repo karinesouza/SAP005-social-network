@@ -5,11 +5,10 @@ import {
   likePost,
   editPost,
   signOut,
-  postPhoto
-} from "../../services/index.js";
+} from '../../services/index.js';
 
 import {
-  onNavigate
+  onNavigate,
 } from '../../utils/history.js';
 
 export const Home = () => {
@@ -33,10 +32,6 @@ export const Home = () => {
         <section class="page-section">
           <textarea id="publish-area" cols="50" rows="10" placeholder="O que deseja compartilhar hoje?"></textarea>
         </section>
-        <section class="page-section">
-          <input class="carregar-img" type="file" accept="image/*">
-          <input id= "enviar-img" type = "submit">
-        </section>
         <section id="container-button">
           <button id="publish-btn">Publicar</button>
         </section>  
@@ -50,8 +45,8 @@ export const Home = () => {
     </main>
   `;
 
-
   const divText = rootElement.querySelector('#feed');
+  console.log(divText)
   const publish = rootElement.querySelector('#publish-btn');
   const publication = rootElement.querySelector('#publish-area');
   const petName = rootElement.querySelector('#hi-pet');
@@ -60,13 +55,13 @@ export const Home = () => {
     createPost(publication.value);
   });
 
-  getPosts(divText, addPost)
+  getPosts(divText, addPost);
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
       petName.innerHTML = `Oi, ${user.displayName}!`;
     }
-  })
+  });
 
   // SAIR
 
@@ -77,17 +72,16 @@ export const Home = () => {
   });
 
   return rootElement;
-
 };
 
 const addPost = (post) => {
-
   const postTemplate = document.createElement('div');
+  console.log(post.data())
   postTemplate.innerHTML = `
     <section class="post-container" data-id=${post.id}>
       <div class="post-item">
         <p>${post.data().name}</p>
-        <img src="../../img/pontos.jpeg" class="points-btn">
+        <img src="../../img/pontos.jpeg" class="points-btn item-edit">
       </div>
       <section id="container-date">
         <p id="text-date">${post.data().date} </p>
@@ -103,7 +97,7 @@ const addPost = (post) => {
       </section>
       <div class="item-edit">
         <img src="../../img/editar.jpeg" class="edit-post-btn" data-id=${post.id}>
-        <img src="../../img/lixeira.jpeg" class="delete-post-btn" data-id=${post.id}>
+        <img src="../../img/lixeira.jpeg" class="delete-post-btn" data-id=${post.id} data-uid=${post.data().user_id}>
       </div> 
       <div class="editing-area">
         <textarea class="edit-area">${post.data().text}</textarea>
@@ -111,71 +105,57 @@ const addPost = (post) => {
         <img src="../../img/cancel.jpeg" class="cancel-btn">
       </div>   
     </section>
-  `
-  const photoTemplate = document.createElement('div');
-  photoTemplate.innerHTML = `
-    <section class="post-container" data-id=${post.id}>
-      <div class="post-item">
-        <img id="photo-storage" src="" alt="">
-      </div>
-    </section>
-  `
+  `;
+
   // CURTIR PUBLICAÇÃO
 
   const like = postTemplate.querySelector('.like-btn');
   like.addEventListener('click', () => {
-    likePost(post.id, post.data())
-  })
+    likePost(post.id, post.data());
+  });
 
-  //EDITAR PUBLICAÇÃO
+
+  // EDITAR PUBLICAÇÃO
 
   const editPoints = postTemplate.querySelectorAll('.points-btn');
-  editPoints.forEach((event) =>
-    event.addEventListener('click', () => {
-      postTemplate.querySelector('.item-edit').classList.add('display');
-    })
-  );
+  editPoints.forEach((event) => event.addEventListener('click', () => {
+    postTemplate.querySelector('.item-edit').classList.add('display');
+  }));
 
   const editBtn = postTemplate.querySelectorAll('.edit-post-btn');
-  editBtn.forEach((event) =>
-    event.addEventListener('click', () => {
-      postTemplate.querySelector('.editing-area').classList.add('display');
-    })
-  );
+  editBtn.forEach((event) => event.addEventListener('click', () => {
+    postTemplate.querySelector('.editing-area').classList.add('display');
+  }));
 
   const saveEditBtn = postTemplate.querySelector('.save-edit-btn');
   const editText = postTemplate.querySelector('.edit-area');
-    saveEditBtn.addEventListener('click', () => {
-      editPost(editText.value, post.id)
-    });
+  saveEditBtn.addEventListener('click', () => {
+    editPost(editText.value, post.id);
+  });
 
   const cancelBtn = postTemplate.querySelector('.cancel-btn');
   cancelBtn.addEventListener('click', () => {
     postTemplate.querySelector('.editing-area').classList.remove('display');
   });
 
-
   // EXCLUIR PUBLICAÇÃO
 
-  document.querySelectorAll('.delete-post-btn').forEach((event) =>
-    event.addEventListener('click', (event) => {
-      const deleteBtn = event.target.parentNode.querySelector('.delete-post-btn')
-      if (confirm("Tem certeza que deseja excluir essa publicação?")) {
-        deletePost(deleteBtn.dataset.id)
-        getPosts()
-        onNavigate('/');
-      }
-    })
-  )
+  document.querySelectorAll('.delete-post-btn').forEach((event) => event.addEventListener('click', (event) => {
+    const deleteBtn = event.target.parentNode.querySelector('.delete-post-btn');
+    if (confirm('Tem certeza que deseja excluir essa publicação?')) {
+      deletePost(deleteBtn.dataset.id);
+      getPosts();
+      onNavigate('/');
+    }
+  }));
 
-  // EDITAR PUBLICAÇÃO
+  // MOSTRAR BOTÃO DE DELETAR SÓ PARA OS USUÁRIOS
+  const userFirebase = firebase.auth().currentUser.uid
+  const postUserUid = (postTemplate.querySelector('.delete-post-btn').getAttribute('data-uid'))
+  if ( userFirebase === postUserUid){
+    editPoints[0].classList.remove('item-edit')
+    console.log(editPoints[0])
+  }
 
-  const btnPhoto = document.querySelector('#enviar-img');
-  btnPhoto.addEventListener('click', (event) => {
-    event.preventDefault();
-    postPhoto();
-  });
-
-  return postTemplate;
-
-};
+  return postTemplate
+}

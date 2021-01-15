@@ -2,7 +2,7 @@ import { loginWithGoogle, login } from '../../services/index.js';
 
 export const Login = () => {
   const rootElement = document.createElement('div');
-  rootElement.className = "container-log";
+  rootElement.className = 'container-log';
   rootElement.innerHTML = `
     <section class='logo'> 
       <img class='img-logo' src="../../img/logo.png">
@@ -21,21 +21,21 @@ export const Login = () => {
     <section/>
   `;
 
-  //LOGIN COM E-MAIL E SENHA
+  // LOGIN COM E-MAIL E SENHA
 
   const loginButton = rootElement.querySelector('#login-btn');
   loginButton.addEventListener('click', (event) => {
-    event.preventDefault();  
-    const email = rootElement.querySelector('#registered-email').value
-    const password = rootElement.querySelector('#registered-password').value
+    event.preventDefault();
+    const email = rootElement.querySelector('#registered-email').value;
+    const password = rootElement.querySelector('#registered-password').value;
     login(email, password);
   });
 
-    //AUTENTICAÇÃO COM GOOGLE
+  // AUTENTICAÇÃO COM GOOGLE
 
   const googleButton = rootElement.querySelector('#google-btn');
   googleButton.addEventListener('click', (event) => {
-    event.preventDefault();  
+    event.preventDefault();
     loginWithGoogle();
   });
 

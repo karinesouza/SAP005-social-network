@@ -1,9 +1,9 @@
 import { createAccount } from '../../services/index.js';
 
 export const register = () => {
-    const rootElement = document.createElement('div');
-    rootElement.className = "container-reg";
-    rootElement.innerHTML = `
+  const rootElement = document.createElement('div');
+  rootElement.className = 'container-reg';
+  rootElement.innerHTML = `
         <section class='logo'> 
             <img class='img-logo' src="../../img/logo.png">
         </section>
@@ -21,24 +21,24 @@ export const register = () => {
         <section/>
     `;
 
-    // VOLTAR PARA A PÁGINA DE LOGIN
+  // VOLTAR PARA A PÁGINA DE LOGIN
 
-    const backButton = rootElement.querySelector('#back-btn');
-    backButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        window.location.href = '/login';
-    });
+  const backButton = rootElement.querySelector('#back-btn');
+  backButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.location.href = '/login';
+  });
 
-    // CADASTRAR-SE
+  // CADASTRAR-SE
 
-    const registerButton = rootElement.querySelector('#register-btn');
-    registerButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        const petName = rootElement.querySelector('#name').value
-        const createEmail = rootElement.querySelector('#e-mail').value
-        const createPassword = rootElement.querySelector('#password').value
-        createAccount (createEmail, createPassword, petName);
-    });
+  const registerButton = rootElement.querySelector('#register-btn');
+  registerButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    const petName = rootElement.querySelector('#name').value;
+    const createEmail = rootElement.querySelector('#e-mail').value;
+    const createPassword = rootElement.querySelector('#password').value;
+    createAccount(createEmail, createPassword, petName);
+  });
 
-    return rootElement;
+  return rootElement;
 };

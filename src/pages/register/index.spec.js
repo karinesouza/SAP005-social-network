@@ -5,4 +5,3 @@ describe('register', () => {
     expect(typeof register).toBe('function');
   });
 });
-

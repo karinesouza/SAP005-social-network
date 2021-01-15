@@ -1,0 +1,179 @@
+body {
+    background-image: url("img/gato-cachorro.PNG");
+    max-width: 100vw;
+    max-height: 100vh;
+    background-size: cover;
+    background-position: top center;
+    color: rgb(107, 58, 58);
+}
+
+/* HEADER */
+#topo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.item-topo {
+    display: flex;
+}
+  
+#logo {
+    max-width: 5em;
+    margin: 0 2px;
+}
+
+/* LOGIN */
+
+.login, .register {
+    display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-end;
+	align-content: center;
+}
+
+.title, .title-login, .title-home {
+    color: rgb(4, 4, 7);
+}
+
+.petlovers{
+    align-content: center;
+}
+
+
+.title {
+    font-family: cursive;
+    text-align: center;
+    padding-left: 30px;
+}
+
+
+#edit {
+    display: none;
+    visibility: hidden;
+}
+
+.like-btn {
+    cursor: pointer;
+}
+
+#header, #footer{
+    background-color: #0CBECC;
+    width: 100%;
+}
+
+
+
+/* FOOTER */
+
+#footer {
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.7rem;
+    padding: 0.7rem 1rem;
+    letter-spacing: 1px;
+  }
+  
+  #footer a {
+    color: #fff;
+    text-shadow: #000 1px 1px 1px;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+  }
+  
+  #footer a:hover {
+    color: #073673;
+    text-shadow: #fff 1px 1px 0.5px;
+  }
+  
+  .footer-year {
+    margin-top: 0.3rem;
+    font-weight: bold;
+  }
+  
+  @media (min-width: 410px) {
+    .one-line {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 900px) {
+    #footer a {
+      text-shadow: #000 1px 1px 1px;
+    }
+  
+    #footer a:hover {
+      text-shadow: #fff 1px 1px 1px;
+    }
+}
+
+
+
+.container-log, .container-reg {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+} 
+
+.form, .main-publications {
+    border: 2px solid hsl(49, 65%, 3%);
+    padding: 20px;
+    background: #f5f4f2;
+    border-radius: 6px;
+    width: 83%;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.logo-cad {
+    display: flex;
+    display: none;
+}
+
+
+.home{
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.img-logo {
+    width: 40vw;
+  }
+
+#sign-out-btn{
+    padding-right: 30px;
+}
+
+.post-container {
+    border-radius: 15px;
+    padding: 5px;
+    background-color: #ffffff;
+    margin: auto;
+    height: 600px;
+    width: 500px;
+    text-align: center;
+    transition: all 0.4s;
+    border: 2px solid hsl(49, 65%, 3%);
+    
+}
+
+@media (min-width: 410px) {
+    .post-container {
+        height: 600px;
+        width: 500px;
+    }
+}

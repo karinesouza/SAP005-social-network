@@ -10,8 +10,8 @@
 
 ## 1. Resumo do Projeto
 
-PetLovers é uma rede social direcionada a pessoas que amam animais. Nela o usuário pode postar fotos do seu bichinho, curiosidades, dicas e qualquer coisa que seja relacionada ao mundo pet, além de conseguir editar, excluir a sua publicação e curtir as postagens de outros usuários.
-Para acessar [clique aqui]()
+PetLovers é uma rede social direcionada a pessoas que amam animais. Nela o usuário pode postar curiosidades, dicas e qualquer coisa que seja relacionada ao mundo pet, além de conseguir editar, excluir a sua publicação e curtir as postagens de outros usuários.
+Para acessar []()
  
 ![paginaweb]()
 
@@ -28,7 +28,6 @@ Para validar nossa persona e criarmos as histórias de usuários, elaboramos alg
 
 •	"Eu como usuário acho interessante ter uma rede social para compartilhar dicas e curiosidades sobre o mundo pet"
 
-•	"Eu como usuário gostaria de poder publicar fotos do meu animal de estimação"
 
 ## 4. Protótipo de baixa fidelidade
 
@@ -42,4 +41,4 @@ Para validar nossa persona e criarmos as histórias de usuários, elaboramos alg
 
 
 💻🙎
-Projeto realizado por Karina Ferreira Santos, Larissa Alborghette e Karine Venerando.
+Projeto realizado por Karina Ferreira Santos,Karine Venerando e Larissa Alborghette.

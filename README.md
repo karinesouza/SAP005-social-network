@@ -11,9 +11,9 @@
 ## 1. Resumo do Projeto
 
 PetLovers é uma rede social direcionada a pessoas que amam animais. Nela o usuário pode postar curiosidades, dicas e qualquer coisa que seja relacionada ao mundo pet, além de conseguir editar, excluir a sua publicação e curtir as postagens de outros usuários.
-Para acessar []()
+Para acessar [Clique aqui](https://rede-social-27bf8.web.app/)
  
-![paginaweb]()
+![paginaweb](Feed.jpeg)
 
 ## 2. Definição de Persona
 

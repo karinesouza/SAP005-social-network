@@ -1,15 +1,14 @@
-// Este é seu ponto de entrada da sua aplicação
 import { Home } from './pages/home/index.js';
 import { Login } from './pages/login/index.js';
+import { register } from './pages/register/register.js';
 import { onNavigate } from './utils/history.js';
-import { Registro } from './pages/registro/index.js';
 
-const routeRender = () => {
+export const routeRender = () => {
   const rootDiv = document.getElementById('root');
   const routes = {
-    '/' : Home,
+    '/': Home,
     '/login': Login,
-    '/registro': Registro,
+    '/register': register,
   };
 
   rootDiv.innerHTML = '';
@@ -22,20 +21,22 @@ window.addEventListener('load', () => {
     .getElementById('home')
     .addEventListener('click', (e) => {
       e.preventDefault();
-      onNavigate('/')
+      onNavigate('/');
     });
+
   document
     .getElementById('login')
     .addEventListener('click', (e) => {
       e.preventDefault();
-      onNavigate('/login')
+      onNavigate('/login');
     });
-  document
+
+    document
     .getElementById('register')
     .addEventListener('click', (e) => {
       e.preventDefault();
-      onNavigate('/registro')
+      onNavigate('/register');
     });
+
   routeRender();
 });
-

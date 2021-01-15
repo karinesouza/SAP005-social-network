@@ -7,7 +7,7 @@ import {
   likePost,
   deletePost,
   editPost,
-  signOut
+  signOut,
 } from './index.js';
 
 describe('Create Account With Email And Password', () => {

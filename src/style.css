@@ -7,7 +7,7 @@ body {
     color: rgb(107, 58, 58);
 }
 
-#topo {
+#topo, #footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -63,9 +63,7 @@ body {
 #footer {
     text-align: center;
     font-weight: 600;
-    font-size: 0.7rem;
-    padding: 0.7rem 1rem;
-    letter-spacing: 1px;
+ 
 }
   
 #footer a {
@@ -73,16 +71,12 @@ body {
     text-shadow: #000 1px 1px 1px;
     font-weight: bold;
     transition: 0.3s ease-in-out;
+    text-align: center;
 }
   
 #footer a:hover {
     color: #073673;
     text-shadow: #fff 1px 1px 0.5px;
-}
-  
-.footer-year {
-    margin-top: 0.3rem;
-    font-weight: bold;
 }
   
 .container-log, .container-reg {
@@ -213,6 +207,12 @@ body {
         flex-direction: column;
         justify-content: center;
         align-content: space-around;
+    }
+}
+
+@media(max-width:640px) {
+    .img-logo{
+        display: none;
     }
 }
            

@@ -1,4 +1,4 @@
-import { Home, addPost} from './index.js';
+import { Home, addPost } from './index.js';
 import * as services from '../../services/index.js';
 
 services.createAccount = jest.fn(() => true);
@@ -22,7 +22,6 @@ describe('Home', () => {
     Home().querySelector('#publish-btn').dispatchEvent(new Event('click'));
   });
 });
-
 
 describe('addPost', () => {
   it('should be a function', () => {
@@ -59,4 +58,3 @@ describe('addPost', () => {
     expect(services.deletePost).toBe(true);
   });
 });
-

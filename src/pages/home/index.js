@@ -46,7 +46,7 @@ export const Home = () => {
   `;
 
   const divText = rootElement.querySelector('#feed');
-  console.log(divText)
+  console.log(divText);
   const publish = rootElement.querySelector('#publish-btn');
   const publication = rootElement.querySelector('#publish-area');
   const petName = rootElement.querySelector('#hi-pet');
@@ -76,7 +76,7 @@ export const Home = () => {
 
 const addPost = (post) => {
   const postTemplate = document.createElement('div');
-  console.log(post.data())
+  console.log(post.data());
   postTemplate.innerHTML = `
     <section class="post-container" data-id=${post.id}>
       <div class="post-item">
@@ -114,7 +114,6 @@ const addPost = (post) => {
     likePost(post.id, post.data());
   });
 
-
   // EDITAR PUBLICAÇÃO
 
   const editPoints = postTemplate.querySelectorAll('.points-btn');
@@ -150,12 +149,11 @@ const addPost = (post) => {
   }));
 
   // MOSTRAR BOTÃO DE DELETAR SÓ PARA OS USUÁRIOS
-  const userFirebase = firebase.auth().currentUser.uid
-  const postUserUid = (postTemplate.querySelector('.delete-post-btn').getAttribute('data-uid'))
-  if ( userFirebase === postUserUid){
-    editPoints[0].classList.remove('item-edit')
-    console.log(editPoints[0])
+  const userFirebase = firebase.auth().currentUser.uid;
+  const postUserUid = (postTemplate.querySelector('.delete-post-btn').getAttribute('data-uid'));
+  if (userFirebase === postUserUid) {
+    editPoints[0].classList.remove('item-edit');
   }
 
-  return postTemplate
-}
+  return postTemplate;
+};

@@ -35,7 +35,15 @@ export const login = (email, password) => {
 export const loginWithGoogle = () => {
   let provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({ prompt: 'select_account' });
-  firebase.auth().signInWithPopup(provider);
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(() => {
+      window.location.pathname = '/';
+    })
+    .catch(() => {
+      alert("Ops! Não foi possível acessar agora. Tente novamente mais tarde.");
+    });
 };
 
 // CRIAR PUBLICAÇÃO
@@ -105,7 +113,6 @@ export const deletePost = (id) => {
 // EDITAR PUBLICAÇÃO
 
 export const editPost = (text, id) => {
-  let editText = 
   firebase
     .firestore()
     .collection("publications")
